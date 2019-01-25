@@ -45,7 +45,6 @@ def create_response(
 def hello_world():
     return create_response({"content": "hello world!"})
 
-
 @app.route("/mirror/<name>")
 def mirror(name):
     data = {"name": name}
@@ -64,6 +63,11 @@ def delete_show(id):
 
 
 # TODO: Implement the rest of the API here!
+@app.route("/shows/<id>", methods=['GET'])
+def get_show(id):
+    if db.getById('shows', int(id)) is None:
+        return create_response(status=404, message="There is no tv show with that id that exists")
+    return create_response({"shows": db.getById('shows', int(id))})
 
 """
 ~~~~~~~~~~~~ END API ~~~~~~~~~~~~
