@@ -93,6 +93,17 @@ def add_show():
         db.create('shows', input_data)
         return create_response(input_data, status=201)
 
+@app.route("/shows/<id>", methods=['POST'])
+def update_show(id):
+    if db.getById('shows', int(id)) is None:
+        return create_response(status=422, message="There is no tv show with that id that exists")
+    input_data = request.get_json()
+    if input_data is None:
+        return create_response(status=422, message="Incorrect input format")
+    db.updateById('shows', int(id), input_data)
+    return create_response(input_data, status=201)
+           
+
 """
 ~~~~~~~~~~~~ END API ~~~~~~~~~~~~
 """
