@@ -11,6 +11,12 @@ def get(type):
 def getById(type, id):
     return next((i for i in get(type) if i["id"] == id), None)
 
+def getMinShowsSeen(type, min_show):
+    tmp = []
+    for show in db_state['shows']:
+        if show['episodes_seen'] >= min_show:
+            tmp.append(show)
+    return tmp
 
 def create(type, payload):
     last_id = max([i["id"] for i in get(type)])
@@ -28,7 +34,6 @@ def updateById(type, id, update_values):
         if k is not "id":
             item[k] = v
     return item
-
 
 def deleteById(type, id):
     db_state[type] = [i for i in get(type) if i["id"] != id]
