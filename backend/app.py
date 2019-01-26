@@ -74,6 +74,25 @@ def get_show(id):
         return create_response(status=404, message="There is no tv show with that id that exists")
     return create_response({"shows": db.getById('shows', int(id))})
 
+@app.route("/shows", methods=['POST'])
+def add_show():
+    output = ""
+    valid_input = True;
+    input_data = request.get_json()
+    if input_data is None:
+        return create_response(status=422, message="Incorrect input format")
+    if "name" not in input_data: 
+        output += "Please input a name."
+        valid_input = False;
+    if 'episodes_seen' not in input_data: 
+        output += " Please input the amount of episodes_seen."
+        valid_input = False;
+    if not valid_input:
+        return create_response(status=422, message=output)
+    else:
+        db.create('shows', input_data)
+        return create_response(input_data, status=201)
+
 """
 ~~~~~~~~~~~~ END API ~~~~~~~~~~~~
 """
