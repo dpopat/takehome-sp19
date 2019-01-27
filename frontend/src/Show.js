@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import Counter from './Counter'
 
 class App extends Component {
-  // YOUR CODE GOES BELOW
   
   render() {
     return (
-      <div/> 
+      <div> 
+      	<h4> Show: {this.props.name} </h4>
+      	<Counter initialCount={this.props.episodes_seen}/>
+      </div>
     )
   }
 }
