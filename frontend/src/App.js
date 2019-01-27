@@ -15,13 +15,39 @@ class App extends Component {
     }
   }
 
+  handleSubmit = event => {
+    this.setState(state => ({
+      shows: state.shows.concat({
+        id: this.state.shows.length + 1,
+        name: this.inputNode.value,
+        episodes_seen: 0
+      })
+    }))
+  }
+
   render() {
+    console.log("hello") 
     return (
       <div className="App">
         <Instructions complete={{complete:true}}/>
         {this.state.shows.map(x => (
           <Show id={x.id} name={x.name} episodes_seen={x.episodes_seen} />
         ))}
+        
+        <p/> 
+
+        <form>
+          <label>  
+            Add a New Show:
+            <input 
+              type="text" 
+              name="showname"
+              ref={node => this.inputNode = node}
+            />
+          </label>
+          <button type="button" onClick={this.handleSubmit} >Submit</button>
+        </form>
+
       </div>
     )
   }

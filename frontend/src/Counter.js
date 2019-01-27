@@ -15,13 +15,15 @@ class Counter extends Component {
   }
 
   decrementCount = () => {
-  	this.setState(state => ({count: state.count - 1}))
+  	if (this.state.count > 0) {
+  		this.setState(state => ({count: state.count - 1}))
+  	}
   }
 
   render() {
     return (
       <div>
-	    Count: {this.state.count}
+	    Episodes Seen: {this.state.count}
 		<button onClick={this.incrementCount}>Increment</button>
 		<button onClick={this.decrementCount}>Decrement</button>
       </div>
